@@ -15,10 +15,13 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthProvider;
+
+import java.util.concurrent.TimeUnit;
 
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText emailId, password;
+    EditText emailId, password, phoneNum;
     Button btnSignUp;
     TextView tvSignIn;
     FirebaseAuth mFirebaseAuth;
@@ -34,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         emailId = findViewById(R.id.editText);
+        phoneNum = findViewById(R.id.editText3);
         password = findViewById(R.id.editText2);
         btnSignUp = findViewById(R.id.button);
         tvSignIn = findViewById(R.id.textView2);
@@ -41,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = emailId.getText().toString();
+                String phone = phoneNum.getText().toString();
                 String pass = password.getText().toString();
 
                 if(email.isEmpty()){
@@ -51,10 +56,14 @@ public class RegisterActivity extends AppCompatActivity {
                     password.setError("Please enter your password");
                     password.requestFocus();
                 }
-                else if(email.isEmpty() && pass.isEmpty()){
+                else if(phone.isEmpty()){
+                    phoneNum.setError("Please enter your phone number");
+                    phoneNum.requestFocus();
+                }
+                else if(email.isEmpty() && pass.isEmpty() && phone.isEmpty()){
                     Toast.makeText(RegisterActivity.this,"Fields are empty!!",Toast.LENGTH_SHORT).show();
                 }
-                else if(!(email.isEmpty() && pass.isEmpty())){
+                else if(!(email.isEmpty() && pass.isEmpty() && phone.isEmpty() )){
                     mFirebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -74,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         tvSignIn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -40,6 +40,9 @@ dependencies {
     //implementation 'com.androidstudy:daraja:1.0.2'
 
     implementation 'com.bdhobare:mpesa:0.0.6'
+    implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.kevinomyonga.droidonboarder:library:1.0.0'
+    implementation 'com.google.code.gson:gson:2.8.2'
     //implementation 'com.google.firebase:firebase-core:19.1.0'
 
 }
